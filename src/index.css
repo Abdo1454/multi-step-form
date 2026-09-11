@@ -1,10 +1,15 @@
-
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Ubuntu', sans-serif;
+}
 .sidebar {
   background-image: url('../src/assets/images/bg-sidebar-desktop.svg');
   background-repeat: no-repeat;
   background-size: cover;
   width: 300px;
-  height: 80vh;
-  
+  height: 90vh;
+  border-radius: 10px;
   padding: 20px;
 }
