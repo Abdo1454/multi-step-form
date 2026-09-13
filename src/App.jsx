@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import SideBar from './components/SideBar/SideBar'
 import YourInfo from './components/YourInfo/YourInfo'
 import SelectPlan from './components/SelectPlan/SelectPlan'
+import AddOns from './components/AddOns/AddOns'
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<YourInfo />} />
         <Route path="/plan" element={<SelectPlan />} />
-        {/* <Route path="/addons" element={<h1>Add-ons</h1>} />
-        <Route path="/summary" element={<h1>Summary</h1>} /> */}
+        <Route path="/addons" element={<AddOns />} />
+        {/* <Route path="/summary" element={<h1>Summary</h1>} /> */}
       </Routes>
     </div>
   )
