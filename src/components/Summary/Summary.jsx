@@ -15,25 +15,20 @@ function Summary() {
         return savedAddOns ? JSON.parse(savedAddOns) : [];
     });
 
-    // plan price
-    if (timeframe === 'Yearly') {
-        var planPrice = selectedPlan.price * 10;
-    } else {
-        var planPrice = selectedPlan.price;
-    }
-    // add-ons total price
-    var addOnsTotal = selectedAddOns.reduce((total, addOn) => {
-        return total + Number(addOn.price);
-    }, 0);
-    if (timeframe === 'Yearly') {
-        addOnsTotal = addOnsTotal * 10;
-    } else {
-        addOnsTotal = addOnsTotal;
-    }
-    const totalPrice = planPrice + addOnsTotal;
-    console.log("Selected Plan:", planPrice);
-    console.log("Total Price:", totalPrice);
-    console.log("Selected Add-Ons:", addOnsTotal);
+   const multiplier = timeframe === 'Yearly' ? 10 : 1;
+
+const planPrice = Number(selectedPlan.price) * multiplier;
+
+const addOnsTotal = selectedAddOns.reduce(
+    (total, addOn) => total + Number(addOn.price) * multiplier,
+    0
+);
+
+const totalPrice = planPrice + addOnsTotal;
+    // const totalPrice = planPrice + addOnsTotal;
+    // console.log("Selected Plan:", planPrice);
+    // console.log("Total Price:", totalPrice);
+    // console.log("Selected Add-Ons:", addOnsTotal);
     return (
         <div>
             <h2 className='fs-1' style={{ color: "#07255b" }}>Finishing Up</h2>
@@ -46,7 +41,10 @@ function Summary() {
                 {selectedPlan && (
                     <div className="d-flex justify-content-between align-items-center  px-5  rounded p-1 mb-1">
                         <span style={{ color: "#07255b" }}>{selectedPlan.name} ({timeframe}) </span>
-                        <span style={{ color: "#07255b" }}> +${selectedPlan.price}/{ (timeframe === 'Yearly' ? "yr" : "mo")}</span>
+                        {/* {
+                            timeframe === 'Yearly' ? selectedPlan.price * 10 : selectedPlan.price
+                        } */}
+                        <span style={{ color: "#07255b" }}> +${timeframe === 'Yearly' ? selectedPlan.price * 10 : selectedPlan.price}/{ (timeframe === 'Yearly' ? "yr" : "mo")}</span>
                     </div>
                 )}
                 <hr />
@@ -71,12 +69,13 @@ function Summary() {
 })}
             </div>
 
-            <div className="d-flex justify-content-between align-items-center  px-5  rounded p-1 mb-1 mt-3">
+            <div className="d-flex justify-content-between align-items-center  px-5 fs-3 rounded p-1 mb-1 mt-3">
                 <h5>
                     Total (per {timeframe === 'Monthly' ? 'month' : 'year'})
                 </h5>
                 <span style={{ color: "#07255b" }}>
-                    ${totalPrice}/{timeframe === 'Yearly' ? 'yr' : 'mo'}
+                    {`+$${totalPrice}/${timeframe === 'Yearly' ? "yr" : "mo"}`}
+                    
                 </span>
             </div>
             <div className="d-flex justify-content-between align-items-center  px-5  rounded p-1 mb-1 mt-3">
