@@ -3,21 +3,23 @@ import { Link } from 'react-router-dom';
 import arcadeIcon from '../../assets/images/icon-arcade.svg';
 import advancedIcon from '../../assets/images/icon-advanced.svg';
 import proIcon from '../../assets/images/icon-pro.svg';
-import YourInfo from '../YourInfo/YourInfo';
+// import YourInfo from '../YourInfo/YourInfo';
 function SelectPlan() {
     const [selectedPlan, setSelectedPlan] = React.useState(()=>{
-        return localStorage.getItem('selectedPlan') || 'Arcade';
+        const savedPlan = localStorage.getItem('selectedPlan');
+        return savedPlan ? savedPlan : '';
     });
     React.useEffect(()=>{
-        localStorage.setItem('selectedPlan', selectedPlan);
+        localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan));
     }, [selectedPlan]);
     const plans = [
-        { name: 'Arcade', price: '$9/mo', icon: arcadeIcon },
-        { name: 'Advanced', price: '$12/mo', icon: advancedIcon },
-        { name: 'Pro', price: '$15/mo', icon: proIcon }
+        { name: 'Arcade', price: '9', icon: arcadeIcon },
+        { name: 'Advanced', price: '12', icon: advancedIcon },
+        { name: 'Pro', price: '15', icon: proIcon }
     ]
     const [timeframe, setTimeframe] = React.useState(()=>{
-        return localStorage.getItem('timeframe') || 'Monthly';
+        const savedTimeframe = localStorage.getItem('timeframe');
+        return savedTimeframe ? savedTimeframe : 'Monthly';
     });
     React.useEffect(()=>{
         localStorage.setItem('timeframe', timeframe);
@@ -33,15 +35,15 @@ function SelectPlan() {
                             return (
                                 <div style={{cursor: "pointer" , width: "200px"}}
                                     className=
-                                    {selectedPlan === plan.name ? "d-flex flex-column align-items-center justify-content-center gap-3 border border-primary rounded p-3  text-dark" 
+                                    {selectedPlan === plan ? "d-flex flex-column align-items-center justify-content-center gap-3 border border-primary rounded p-3  text-dark" 
                                         : "d-flex flex-column align-items-center justify-content-center gap-3 border border-light rounded p-3 bg-light text-dark"}
                                     key={plan.name}
-                                    onClick={() => setSelectedPlan(plan.name)}
+                                    onClick={() => setSelectedPlan(plan)}
                                 >
                                     <img src={plan.icon} alt={plan.name} />
                                     <div>
                                         <h4 style={{color: "#07255b"}}>{plan.name}</h4>
-                                        <p className="text-muted">{plan.price}</p>
+                                        <p className="text-muted">+${plan.price} / { (timeframe === 'Yearly' ? "yr" : "mo")}</p>
                                     </div>
                                 </div>
                             )

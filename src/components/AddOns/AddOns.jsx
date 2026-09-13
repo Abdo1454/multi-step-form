@@ -45,7 +45,9 @@ function AddOns() {
         if (selectedAddOns.length === 0) {
             e.preventDefault();
             alert("Please select at least one add-on before proceeding.");
-        };
+        } else {
+            localStorage.setItem("selectedAddOns", JSON.stringify(selectedAddOns));
+        }
 
     }
     return (
