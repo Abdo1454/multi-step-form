@@ -16,14 +16,14 @@ function SideBar() {
                     return (
                         <li className="d-flex gap-3 align-items-center text-light" key={step.step}>
                             <NavLink to={step.path} className={
-                                ({isActive}) => isActive ? "d-flex align-items-center justify-content-center border border-light rounded-circle p-2 px-3 text-light text-decoration-none fs-2 bg-primary" :
-                                "d-flex align-items-center justify-content-center border border-light rounded-circle p-2 px-3  text-light text-decoration-none fs-2"
+                                ({isActive}) => isActive ? "d-flex align-items-center justify-content-center border border-light rounded-circle py-1 px-3 text-light text-decoration-none fs-2 bg-secondary" :
+                                "d-flex align-items-center justify-content-center border border-light rounded-circle py-1 px-3  text-light text-decoration-none fs-2"
                             }>
                                 {step.step}
                             </NavLink>
                             <div>
                                 <p>STEP {step.step}</p>
-                                <h4>{step.label}</h4>
+                                <h5>{step.label}</h5>
                             </div>
                         </li>
                     )
